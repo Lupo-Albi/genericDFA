@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h> // Cabeçalho para manipular strings
 
-void imprimeCI(char* palavra, int comprPalavra, int estado, int posicao)
+void imprimeCI(char* palavra, int comprPalavra, int estado, int posicao);
 
 int main (int argc, char *argv[]) {
     char *palavra = argv[1]; // Ponteiro para a palavra de entrada
@@ -11,11 +11,35 @@ int main (int argc, char *argv[]) {
     int estadoFinal[1] = {0}; // Estado final é um array com os números inteiros que representam os estados finais do autômado
     int posicao = 0; // Posição na leitura da palavra de entrada
 
-    imprimeCI(palavra, comprPalavra, estado, posicao); // Mostrando configuração instantânea do autômato
+    while(posicao < comprPalavra) {
+        imprimeCI(palavra, comprPalavra, estado, posicao); // Mostrando configuração instantânea do autômato
+
+        char caractere = palavra[posicao];
+            
+
+        if (estado == 0 && caractere == '0') {
+            estado = 0;
+        } else if (estado == 0 && caractere == '1') {
+            estado = 1;
+        } else if (estado == 1 && caractere == '0') {
+            estado = 1;
+        } else if (estado == 1 && caractere == '1') {
+            estado = 0;
+        }
+
+        posicao++;
+    }
+
+    imprimeCI(palavra, comprPalavra, estado, posicao); // Mostrando configuração instantânea do final da execução do autômato
+
+    if (estado == 1) {
+            printf("ACEITA");
+    } else {
+        printf("REJEITA");
+    }
 
     return 0;
 }
-
 
 // Função para imprimir as configurações instantâneas da execução do Autômato.
 void imprimeCI(char* palavra, int comprPalavra, int estado, int posicao) {
