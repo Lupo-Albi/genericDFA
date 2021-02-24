@@ -71,3 +71,13 @@ void imprimeCI(char* palavra, int comprPalavra, int estado, int posicao) {
 
     printf("\n"); // Quebra de linha
 }
+
+// Função para mapear cada caractere único encontrado na string de entrada
+    int* mapString(char* palavra, int comprPalavra) {
+        char caractere;
+        char* novaPalavra = palavra;
+        memset(novaPalavra, ' ', comprPalavra);   
+        for(int i = 0; i < comprPalavra; i++){
+
+        }
+    }
