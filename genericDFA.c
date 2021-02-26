@@ -2,46 +2,50 @@
 #include <stdio.h>
 #include <string.h> // Header para manipular strings
 
-/* Definindo constantes */
-#define FALSE 0 
-#define TRUE !(FALSE)
-
 /* Declaração de funções */
 void imprimeCI(char* palavra, int comprPalavra, int estado, int posicao);
+int buscaSequencial(int* vetor, int chave, int comprVetor);
+void insertionSort(int* vetor, int comprVetor);
+void charArrayToInt(char* vetorOrigem, int* vetorDestino, int comprVetor);
+int agruparValores(int* vetorOrigem, int* vetorDestino, int comprVetor);
 
-
-void main (int argc, char *argv[]) {
+// int argc, char *argv[]
+void main () {
     /* Declaração de Variáveis */
     // char *palavra = argv[1]; // Ponteiro para a palavra de entrada
     char palavra[6] = "aabbab";
     int estadoInicial = 0; 
     int funcaoTrans[4][2] = {{1,2}, {0,3}, {3, 0}, {2,1}}; // Função de Transição é um array multidimensional de inteiros, que representa a forma de tabela do autômato, onde as linhas são os estados e as colunas os símbolos do alfabeto. Por exemplo, funcaoTrans[q][a] representa a transição do autômato ao estar no estado q e receber o símbolo de entrada a
     int estadoFinal[1] = {3}; // Estado final é um array com os números inteiros que representam os estados finais do autômado
-
     int comprPalavra = strlen(palavra); // Guarda o tamanho da palavra de entrada
     int estado = estadoInicial; // Estado em que o autômato se encontra
     int posicao = 0; // Posição na leitura da palavra de entrada
-    int eAceita = FALSE; // Informa se a palavra é aceita ou não pelo autômato
+    int eAceita = 0; // Informa se a palavra é aceita ou não pelo autômato
+
+    int palavraInt[6], palavraAgrupada[6];
+    int comprAgrupado, caractereInt, letraAlfabeto;
+
+    charArrayToInt(palavra, palavraInt, comprPalavra);
+    comprAgrupado = agruparValores(palavraInt, palavraAgrupada, comprPalavra);
 
     while(posicao < comprPalavra) {
-        imprimeCI(palavra, comprPalavra, estado, posicao); // Mostrando configuração instantânea do autômato
+        imprimeCI(palavra, comprPalavra, estado, posicao);
 
-        char caractere = palavra[posicao];
-        int caractereInt = caractere - '0'; // Converte caractere para o tipo int
+        caractereInt = palavraInt[posicao];
+        letraAlfabeto = buscaSequencial(palavraAgrupada, caractereInt, comprAgrupado);
+        // char caractere = palavra[posicao];
+        // int caractereInt = caractere - '0'; // Converte caractere para o tipo int
 
-        estado = funcaoTrans[estado][caractereInt]; 
+        estado = funcaoTrans[estado][letraAlfabeto]; 
 
         posicao++;
     }
-
     imprimeCI(palavra, comprPalavra, estado, posicao); // Mostrando configuração instantânea do final da execução do autômato
 
     // loop para percorrer todos os estados de aceitação. Se o autômato chegou em um estado de aceitação após o término da sua execucação, então a string de entrada é aceita por ele
     int tamEstadoFinal = sizeof(estadoFinal) / sizeof(estadoFinal[0]); // Tamanho do array de estados finais
-    for (int i = 0; i < tamEstadoFinal; i++) {
-        if (estado == estadoFinal[i]) {
-            eAceita = TRUE; 
-        }
+    if(memchr(estadoFinal, estado, tamEstadoFinal) != NULL) {
+        eAceita = 1;
     }
 
     // Verificando se o autômato chegou em um estado de aceitação
