@@ -12,9 +12,10 @@ void imprimeCI(char* palavra, int comprPalavra, int estado, int posicao);
 
 void main (int argc, char *argv[]) {
     /* Declaração de Variáveis */
-    char *palavra = argv[1]; // Ponteiro para a palavra de entrada
+    // char *palavra = argv[1]; // Ponteiro para a palavra de entrada
+    char palavra[6] = "aabbab";
     int estadoInicial = 0; 
-    int funcaoTrans[4][2] = {{1,0}, {1,2}, {3, 0}, {3,3}}; // Função de Transição é um array multidimensional de inteiros, que representa a forma de tabela do autômato, onde as linhas são os estados e as colunas os símbolos do alfabeto. Por exemplo, funcaoTrans[q][a] representa a transição do autômato ao estar no estado q e receber o símbolo de entrada a
+    int funcaoTrans[4][2] = {{1,2}, {0,3}, {3, 0}, {2,1}}; // Função de Transição é um array multidimensional de inteiros, que representa a forma de tabela do autômato, onde as linhas são os estados e as colunas os símbolos do alfabeto. Por exemplo, funcaoTrans[q][a] representa a transição do autômato ao estar no estado q e receber o símbolo de entrada a
     int estadoFinal[1] = {3}; // Estado final é um array com os números inteiros que representam os estados finais do autômado
 
     int comprPalavra = strlen(palavra); // Guarda o tamanho da palavra de entrada
@@ -72,12 +73,22 @@ void imprimeCI(char* palavra, int comprPalavra, int estado, int posicao) {
     printf("\n"); // Quebra de linha
 }
 
-// Função para mapear cada caractere único encontrado na string de entrada
-    int* mapString(char* palavra, int comprPalavra) {
-        char caractere;
-        char* novaPalavra = palavra;
-        memset(novaPalavra, ' ', comprPalavra);   
-        for(int i = 0; i < comprPalavra; i++){
-
+/*
+ * Função: buscaSequencial 
+ * ------------------------
+ * percorre o vetor buscando por um valor chave
+ * 
+ * int* vetor: vetor de inteiros a ser buscado um valor
+ * int chave: valor a ser buscado
+ * int comprVetor: inteiro com o tamanho do vetor
+ * 
+ * returns: o índice da primeira ocorrência da chave buscada ou -1 caso não encontra a chave no array
+ */
+int buscaSequencial(int* vetor, int chave, int comprVetor) {
+    for (int i = 0; i < comprVetor; i++) {
+        if(vetor[i] == chave) {
+            return i;
         }
     }
+    return -1;
+}
