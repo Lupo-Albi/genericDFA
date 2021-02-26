@@ -92,3 +92,26 @@ int buscaSequencial(int* vetor, int chave, int comprVetor) {
     }
     return -1;
 }
+
+/*
+ * Função: insertionSort
+ * ----------------------
+ * Ordena um vetor de inteiros de forma crescente
+ * 
+ *  int* vetor: vetor de inteiros a ser ordenado
+ *  int tamanho: tamanho do vetor a ser ordenado
+ */
+void insertionSort(int* vetor, int comprVetor) {
+    int chave, i;
+    for (int j = 1; j < comprVetor; j++){
+        chave = vetor[j];
+        i = j - 1;
+
+        while (i >= 0 && vetor[i] > chave) {
+            vetor[i+1] = vetor[i];
+            i--;
+        }
+
+        vetor[i + 1] = chave;
+    }
+}
