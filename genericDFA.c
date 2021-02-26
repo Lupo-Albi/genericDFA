@@ -115,3 +115,18 @@ void insertionSort(int* vetor, int comprVetor) {
         vetor[i + 1] = chave;
     }
 }
+
+/*
+ * Função: charArrayToInt
+ * -----------------------
+ * Converte os valores de um array de caracteres em valores inteiros (correspondente aos da tabela ASCII) para um array de destino
+ * 
+ * char* vetorOrigem: array de caracteres
+ * int* vetorDestino: array que recebe os valores convertidos para inteiros
+ * int comprVetor: tamanho do array de origem vetorOrigem
+ */
+void charArrayToInt(char* vetorOrigem, int* vetorDestino, int comprVetor) {
+    for (int i = 0; i < comprVetor; i++) {
+        vetorDestino[i] = (int)(vetorOrigem[i]);
+    }
+}
