@@ -130,3 +130,34 @@ void charArrayToInt(char* vetorOrigem, int* vetorDestino, int comprVetor) {
         vetorDestino[i] = (int)(vetorOrigem[i]);
     }
 }
+
+/*
+ * Função: agruparValores
+ * ------------------------
+ * Agrupa valores iguais encontrados em um array e os ordena em ordem crescente.
+ * Exemplo: Se o vetor de origem é [3, 3, 1, 1, 2] o vetor de destino será [1, 2, 3] após a execução da função e retorna o valor 3 (número de elementos no array de destino)
+ * 
+ * int* vetorOrigem: array de inteiros
+ * int* vetorDestino: array que recebe o agrupamento em ordem crescence
+ * int comprVetor: tamanho do array de origem vetorOrigem
+ * 
+ *  returns: retorna a quantidade final de elementos gravados no vetor de destino
+ */
+int agruparValores(int* vetorOrigem, int* vetorDestino, int comprVetor) {
+    int posicao = 0; // posição para gravar no array, também informa quantos valores foram gravados no vetor de destino
+    int chave; // e veirifica se ele já foi adicionado ao vetor de origem. Caso não, 
+
+    for (int i = 0; i < comprVetor; i++){
+        chave = vetorOrigem[i]; // armazena a cada iteração do laço um valor do vetor de origem
+
+        // Caso a chave não esteja no vetor destino, ela é adicionada a ele
+        if(buscaSequencial(vetorDestino, chave, posicao) < 0){
+            vetorDestino[posicao] = chave;
+            posicao++;
+        }
+    }
+    // Nesse ponto, todos os valores únicos do vetor de origem foram adicionados ao vetor de destino
+    insertionSort(vetorDestino, posicao); // Ordenando o vetor de destino final em ordem crescente
+
+    return posicao;
+}
